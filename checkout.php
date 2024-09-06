@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // Get the input data from the request
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (empty($input['user_id']) || empty($input['total_amount']) || empty($input['items']) || empty($input['coordinates'])) {
+if (empty($input['user_id']) || empty($input['total_amount']) || empty($input['items']) || empty($input['coordinates']) || empty($input['payment_method'])) {
     sendResponse('error', 'Missing required fields.');
 }
 
@@ -31,6 +31,7 @@ $user_id = $input['user_id'];
 $total_amount = $input['total_amount'];
 $items = $input['items'];
 $coordinates = $input['coordinates'];
+$payment_method = $input['payment_method']; // Get the payment method from the input
 
 mysqli_autocommit($conn, false); // Start transaction
 
@@ -50,6 +51,13 @@ try {
         if (!$stmt->execute()) {
             throw new Exception('Failed to insert into checkout_details table.');
         }
+    }
+
+    // Insert into orders table with payment method
+    $stmt = $conn->prepare("INSERT INTO orders (checkout_id, user_id, payment_method) VALUES (?, ?, ?)");
+    $stmt->bind_param("iis", $checkout_id, $user_id, $payment_method); // Insert payment_method
+    if (!$stmt->execute()) {
+        throw new Exception('Failed to insert into orders table.');
     }
 
     // Delete from carts table
