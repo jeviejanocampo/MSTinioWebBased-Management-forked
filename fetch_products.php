@@ -23,9 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 $query = "
     SELECT p.product_id, p.product_name, p.product_price, p.product_description, d.category_name 
     FROM Products p
-    INNER JOIN product_details d ON p.product_id = d.product_details_id
+    INNER JOIN product_details d ON p.product_details_id = d.product_details_id
 ";
 
+// Execute the query
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful
