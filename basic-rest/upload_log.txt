@@ -1,0 +1,13 @@
+Array
+(
+    [image] => Array
+        (
+            [name] => UserIDsReceipt_62_UsersFullname_Baho.jpg
+            [full_path] => UserIDsReceipt_62_UsersFullname_Baho.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\phpB534.tmp
+            [error] => 0
+            [size] => 18542
+        )
+
+)
