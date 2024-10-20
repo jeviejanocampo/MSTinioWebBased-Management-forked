@@ -5,9 +5,9 @@ Array
             [name] => UserIDsReceipt_62_UsersFullname_Baho.jpg
             [full_path] => UserIDsReceipt_62_UsersFullname_Baho.jpg
             [type] => image/jpeg
-            [tmp_name] => C:\xampp\tmp\phpB534.tmp
+            [tmp_name] => C:\xampp\tmp\phpB756.tmp
             [error] => 0
-            [size] => 18542
+            [size] => 67014
         )
 
 )

@@ -26,6 +26,7 @@ $user_id = $data['user_id'] ?? null;
 $product_id = $data['product_id'] ?? null;
 $product_price = $data['product_price'] ?? null;
 $product_quantity = $data['product_quantity'] ?? 1; // Default quantity to 1
+$product_image = $data['product_image_filename'] ?? null; // New field for image file name
 
 if (!$user_id || !$product_id || !$product_price) {
     sendResponse('error', 'Required fields are missing.');
@@ -50,12 +51,12 @@ if ($result->num_rows > 0) {
 
     $update_query = "
         UPDATE carts 
-        SET product_quantity = ?, cart_status = 'to be checked out'
+        SET product_quantity = ?, cart_status = 'to be checked out', product_image = ?
         WHERE user_id = ? AND product_id = ? AND product_price = ?
     ";
 
     $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param('iidi', $new_quantity, $user_id, $product_id, $product_price);
+    $update_stmt->bind_param('isidd', $new_quantity, $product_image, $user_id, $product_id, $product_price);
 
     if ($update_stmt->execute()) {
         sendResponse('success', 'Product quantity updated successfully.');
@@ -67,12 +68,12 @@ if ($result->num_rows > 0) {
 } else {
     // Product does not exist, insert a new entry
     $insert_query = "
-        INSERT INTO carts (user_id, product_id, product_price, product_quantity, cart_status) 
-        VALUES (?, ?, ?, ?, 'to be checked out')
+        INSERT INTO carts (user_id, product_id, product_price, product_quantity, cart_status, product_image) 
+        VALUES (?, ?, ?, ?, 'to be checked out', ?)
     ";
 
     $insert_stmt = $conn->prepare($insert_query);
-    $insert_stmt->bind_param('iidi', $user_id, $product_id, $product_price, $product_quantity);
+    $insert_stmt->bind_param('iidis', $user_id, $product_id, $product_price, $product_quantity, $product_image);
 
     if ($insert_stmt->execute()) {
         sendResponse('success', 'Product added to cart successfully.');

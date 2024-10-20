@@ -30,6 +30,7 @@ $query = "
         c.user_id, 
         c.product_quantity, 
         c.product_price, 
+        c.product_image, 
         p.product_name
     FROM 
         carts c
@@ -52,7 +53,13 @@ if (!$result) {
 }
 
 $carts = [];
+$baseImageUrl = 'http://192.168.1.32/capstone-template/product-images/';
+
 while ($row = $result->fetch_assoc()) {
+    // Prepend the base image URL to the product_image
+    if (!empty($row['product_image'])) {
+        $row['product_image'] = $baseImageUrl . $row['product_image'];
+    }
     $carts[] = $row;
 }
 

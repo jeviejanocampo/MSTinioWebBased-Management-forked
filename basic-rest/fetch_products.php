@@ -4,6 +4,9 @@ header('Content-Type: application/json');
 // Include database connection
 include 'dbcon.php';
 
+// Define the base URL for the images
+$image_base_url = 'http://192.168.1.32/capstone-template/product-images/'; // Base URL to your image folder
+
 // Function to send JSON response
 function sendResponse($status, $message, $data = []) {
     echo json_encode([
@@ -19,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit();
 }
 
-// Query to fetch products with details
+// Query to fetch products with details, including the product_image
 $query = "
-    SELECT p.product_id, p.product_name, p.product_price, p.product_description, d.category_name 
+    SELECT p.product_id, p.product_name, p.product_price, p.product_description, d.category_name, p.product_image 
     FROM Products p
     INNER JOIN product_details d ON p.product_details_id = d.product_details_id
 ";
@@ -38,6 +41,10 @@ if (!$result) {
 // Fetch the data
 $products = [];
 while ($row = mysqli_fetch_assoc($result)) {
+    // Prepend the base URL to the product image filename
+    $row['product_image'] = $image_base_url . $row['product_image']; // Append image path to the URL
+
+    // Add the product to the list
     $products[] = $row;
 }
 
