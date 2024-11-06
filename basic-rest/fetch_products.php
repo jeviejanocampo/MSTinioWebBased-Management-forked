@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 include 'dbcon.php';
 
 // Define the base URL for the images
-$image_base_url = 'http://192.168.1.32/capstone-template/product-images/'; // Base URL to your image folder
+$image_base_url = 'http://192.168.106.22/capstone-template/product-images/'; // Base URL to your image folder
 
 // Function to send JSON response
 function sendResponse($status, $message, $data = []) {

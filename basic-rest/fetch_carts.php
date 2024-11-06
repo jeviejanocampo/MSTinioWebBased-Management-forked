@@ -53,7 +53,7 @@ if (!$result) {
 }
 
 $carts = [];
-$baseImageUrl = 'http://192.168.1.32/capstone-template/product-images/';
+$baseImageUrl = 'http://192.168.106.22/capstone-template/product-images/';
 
 while ($row = $result->fetch_assoc()) {
     // Prepend the base image URL to the product_image

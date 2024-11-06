@@ -65,7 +65,7 @@ if (isset($data['user_id'])) {
                 while ($detailsRow = $detailsResult->fetch_assoc()) {
                     $productImage = $detailsRow['product_image'];
                     // Construct the full image URL
-                    $imageUrl = "http://192.168.1.32/capstone-template/product-images/" . $productImage;
+                    $imageUrl = "http://192.168.106.22/capstone-template/product-images/" . $productImage;
 
                     // Fetch product price from the products table based on product_id
                     $product_price = $detailsRow['product_price']; // Now fetching product_price directly from products

@@ -8,7 +8,7 @@ include 'dbcon.php';  // Ensure this file establishes a $conn connection
 $response = [];
 
 // Define the base URL for the product images
-$base_url = 'http://192.168.1.32/capstone-template/product-images/';
+$base_url = 'http://192.168.106.22/capstone-template/product-images/';
 
 // Fetch the product images from the database
 try {
